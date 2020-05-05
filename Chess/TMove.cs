@@ -15,6 +15,19 @@ namespace Chess
 
         public void Make()
         {
+            if(Piece is TKing)
+            {
+                if (StopCell.X == StartCell.X - 2)
+                {
+                    var rook = StartCell.GetNeighbour(-4,0).Piece;
+                    rook.Cell = StopCell.GetNeighbour(1, 0);
+                }
+                if (StopCell.X == StartCell.X + 2)
+                {
+                    var rook = StartCell.GetNeighbour(3, 0).Piece;
+                    rook.Cell = StopCell.GetNeighbour(-1, 0);
+                }
+            }
             Piece.Cell = StopCell;
             if (Capture != null)
             {
@@ -27,6 +40,19 @@ namespace Chess
 
         public void UnMake()
         {
+            if (Piece is TKing)
+            {
+                if (StopCell.X == StartCell.X - 2)
+                {
+                    var rook = StopCell.GetNeighbour(1, 0).Piece;
+                    rook.Cell = StartCell.GetNeighbour(-4, 0);
+                }
+                if (StopCell.X == StartCell.X + 2)
+                {
+                    var rook = StopCell.GetNeighbour(-1, 0).Piece;
+                    rook.Cell = StartCell.GetNeighbour(3, 0);
+                }
+            }
             Piece.MoveCount--;
             if (Capture != null)
                 Piece.Player.Enemy.Pieces.Add(Capture);

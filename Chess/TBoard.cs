@@ -137,9 +137,9 @@ namespace Chess
                     //var y = j / N;
                     if (player == BlackPlayer)
                     {
-                        //player.Pieces[j].ImageId += 1;
+                      //player.Pieces[j].ImageId += 1;
                       y = j / N;
-                    //y=N-1-y;
+                      //y=N-1-y;
                     }
                     player.Pieces[j].Cell=Cells[y,x];
                 }
@@ -203,10 +203,35 @@ namespace Chess
                     var move = moves.Find(x => x.StopCell == stopCell);
                     move.Make();
                     ActivePiece = null;
+                    if (ActivePlayer.IsComputer)
+                    {
+                        if (ActivePlayer == WhitePlayer)
+                        {
+                            WhitePlayer.MiniMax(TPlayer.SearchDepth);
+                        }
+                        else
+                        {
+                            BlackPlayer.MaxiMin(TPlayer.SearchDepth);
+                        }
+                        ActivePlayer.BestMove.Make();
+                    }
                 }
                 Invalidate();
             }
         }
+        public int Evaluate()
+        {
+            var score = 0;
+            foreach(var piece in BlackPlayer.Pieces)
+            {
+                score += piece.Value;
+            }
+            foreach (var piece in WhitePlayer.Pieces)
+            {
+                score -= piece.Value;
+            }
 
+            return score;
+        }
     }
 }

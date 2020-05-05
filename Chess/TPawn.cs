@@ -42,23 +42,15 @@ public class TPawn : TPiece
             if (MoveCount > 0)
             {
                 var lastMove = Player.Board.Moves.Last();
-                if (dir == -1 && Cell.Y == 3 && lastMove.Piece is TPawn && lastMove.Piece.MoveCount == 1)
+                if (lastMove.Piece is TPawn && lastMove.Piece.MoveCount == 1)
                 {
                     if (lastMove.StopCell == Cell.GetNeighbour(-1, 0))
-                        cells.Add(Cell.GetNeighbour(-1, -1));
+                        cells.Add(Cell.GetNeighbour(-1, dir));
                     if (lastMove.StopCell == Cell.GetNeighbour(1, 0))
-                        cells.Add(Cell.GetNeighbour(1, -1));
+                        cells.Add(Cell.GetNeighbour(1, dir));
                 }
-                if (dir == 1 && Cell.Y == 4 && lastMove.Piece is TPawn && lastMove.Piece.MoveCount == 1)
-                {
-                    if (lastMove.StopCell == Cell.GetNeighbour(-1, 0))
-                        cells.Add(Cell.GetNeighbour(-1, 1));
-                    if (lastMove.StopCell == Cell.GetNeighbour(1, 0))
-                        cells.Add(Cell.GetNeighbour(1, 1));
-                }
+
             }
-
-
             return cells;
     }
 }

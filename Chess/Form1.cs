@@ -15,6 +15,7 @@ namespace Chess
         public Form1()
         {
             InitializeComponent();
+            tBoard1.BlackPlayer.IsComputer = true;
         }
 
         private void TBoard1_Load(object sender, EventArgs e)
